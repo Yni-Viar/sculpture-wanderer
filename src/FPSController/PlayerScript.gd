@@ -18,14 +18,9 @@ const JUMP_VELOCITY = 4
 ## Sprint sounds
 @export var sprint_sounds: Array[String]
 ## Inventory toggle
-@export var enable_inventory: bool = false
+#@export var enable_inventory: bool = false
 ## Movement toggle (camera can be still moved through, even if this property is disabled)
 @export var can_move: bool = true
-## Current item in hand
-@export var using_item: String = ""
-## Keycards. Unlike SCP games, these keycards can open only certain doors, not other.
-## There is no leveling system.
-@export var keycards: Array[int]
 
 @onready var ray = $PlayerHead/PlayerRecoil/RayCast3D
 @onready var walk_sounds = $WalkSounds
@@ -33,6 +28,11 @@ const JUMP_VELOCITY = 4
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var is_sprinting: bool = false
+var is_swimming: bool = false:
+	set(val):
+		if !is_swimming && val:
+			splash()
+		is_swimming = val
 var is_walking: bool = false
 ## Enables or disables ALL motion (including camera rotate)
 var motion_enabled = true
@@ -52,13 +52,25 @@ func _input(event: InputEvent) -> void:
 		$PlayerHead.rotation_degrees = player_rotation
 
 func _physics_process(delta: float) -> void:
+	is_swimming = global_position.y < 0.1
+	
 	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if !is_on_floor():
+		if is_swimming:
+			velocity += get_gravity() * 0.01 * delta
+		else:
+			velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("move_jump") and is_on_floor():
+	if Input.is_action_just_pressed("move_jump") && (is_on_floor() || is_swimming):
 		velocity.y = JUMP_VELOCITY
+	
+	if Input.is_action_pressed("camera_switch"):
+		$PlayerHead/PlayerRecoil/PlayerCamera.current = false
+		$StaticPlayer/Head/Camera3D.current = true
+	else:
+		$PlayerHead/PlayerRecoil/PlayerCamera.current = true
+		$StaticPlayer/Head/Camera3D.current = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -68,12 +80,16 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("move_sprint"):
 			velocity.x = direction.x * SPEED * 2
 			velocity.z = direction.z * SPEED * 2
+			$PlayerModel/VitruvianGame.set_state("walk_scale", "scale", 2.0)
 		else:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
+			$PlayerModel/VitruvianGame.set_state("walk_scale", "scale", 1.0)
+		$PlayerModel/VitruvianGame.set_state("state_machine", "blend_amount", lerp($PlayerModel/VitruvianGame/AnimationTree.get("parameters/state_machine/blend_amount"), 1.0, SPEED * delta))
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		$PlayerModel/VitruvianGame.set_state("state_machine", "blend_amount", lerp($PlayerModel/VitruvianGame/AnimationTree.get("parameters/state_machine/blend_amount"), 0.0, SPEED * delta))
 
 	move_and_slide()
 
@@ -84,6 +100,10 @@ func footstep_animate():
 			call("play_footstep_sound", false)
 		if is_sprinting:
 			call("play_footstep_sound", true)
+
+func splash():
+	$InteractSound.stream = load("res://Sounds/Character/Splash/9508__petenice__splash.ogg")
+	$InteractSound.play()
 
 ## Make footstep sounds audible to all.
 func play_footstep_sound(sprinting: bool):

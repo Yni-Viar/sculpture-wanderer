@@ -1,5 +1,12 @@
 # Project Wanderer
 
+## v0.2.0 (2026.09.06)
+
+- Randomized human model + ability to look at yourself
+- Added step sounds
+- Character can now swim!
+- Added colliders for trees
+
 ## v0.1.2 (2026.09.03)
 
 - Increase chunk distance and make it configurable in editor.

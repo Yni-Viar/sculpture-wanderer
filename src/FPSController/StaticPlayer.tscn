@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://by5c7g15ljuta"]
+
+[ext_resource type="Script" uid="uid://c1vhbt1jwwvi1" path="res://FPSController/StaticPlayer.gd" id="1_cfg1l"]
+
+[node name="StaticPlayer" type="Node3D" unique_id=1172382677]
+script = ExtResource("1_cfg1l")
+
+[node name="Head" type="Node3D" parent="." unique_id=1503279647]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=2011246397]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999998, 0, 0, 2.8750002)
+cull_mask = 524287
+near = 0.031
+far = 60.0

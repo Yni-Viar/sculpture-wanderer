@@ -80,6 +80,8 @@ func biome_height_generator(x: int, y: int, noise_value: FastNoiseLite) -> float
 
 func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
 	for i in range(terrain_manager.trees_for_forest.size()):
+		var static_body: StaticBody3D = StaticBody3D.new()
+		add_child(static_body)
 		# Create the multimesh.
 		var multimesh: MultiMesh = MultiMesh.new()
 		# Set the format first.
@@ -113,6 +115,12 @@ func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
 			# Fix floating tree bug
 			var random_position: Vector3 = Vector3(random_coords.x, height - 1, random_coords.y)
 			multimesh.set_instance_transform(j, Transform3D(Basis(), random_position))
+			var collider: CollisionShape3D = CollisionShape3D.new()
+			collider.shape = CylinderShape3D.new()
+			collider.shape.height = 32.0
+			collider.shape.radius = 2.0
+			static_body.add_child(collider)
+			collider.position = Vector3(random_coords.x, height - 1 + 16.0, random_coords.y)
 		var mmi: MultiMeshInstance3D = MultiMeshInstance3D.new()
 		mmi.multimesh = multimesh
 		add_child(mmi)

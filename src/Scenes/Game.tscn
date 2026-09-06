@@ -25,7 +25,7 @@ shadow_enabled = true
 environment = SubResource("Environment_3cx6b")
 
 [node name="Player" parent="." unique_id=968030370 instance=ExtResource("1_j5yw3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8364339, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Terrain" type="Node3D" parent="." unique_id=339319666 node_paths=PackedStringArray("player")]
 script = ExtResource("1_iukft")

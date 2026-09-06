@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://cvc6ahfrbvwbk"]
+
+[ext_resource type="PackedScene" uid="uid://b6d3n4rf2svqe" path="res://Assets/Third-party/VitruvianHuman_CC0/VitruvianGame.gltf" id="1_hlcp7"]
+[ext_resource type="Script" uid="uid://cgo6nbjltqemk" path="res://Scripts/HumanRandomizer.gd" id="2_7t8pr"]
+[ext_resource type="Shader" uid="uid://rwmp12dnfv7m" path="res://Assets/Third-party/HumanShaders_MITLicense/skin_shader.gdshader" id="3_8ote3"]
+[ext_resource type="Texture2D" uid="uid://bg5wg2pb2tpm7" path="res://Assets/Third-party/HumanShaders_MITLicense/Resources/lightwarp_skin1.tres" id="4_d6ban"]
+[ext_resource type="Texture2D" uid="uid://yrduakot8vku" path="res://Assets/Third-party/VitruvianHuman_CC0/skin_light_col_combined.png" id="5_jn44k"]
+[ext_resource type="Texture2D" uid="uid://c361gvefic0i" path="res://Assets/Third-party/VitruvianHuman_CC0/skin_disp_combined_normal.png" id="6_u7bl0"]
+[ext_resource type="Texture2D" uid="uid://bmxxqd0d8ioy3" path="res://Assets/Third-party/HumanShaders_MITLicense/Resources/InterleavedGradientNoise.png" id="7_5bobj"]
+[ext_resource type="Shader" uid="uid://bfh8bv8tktr8m" path="res://Assets/Third-party/VitruvianHuman_CC0/iris.gdshader" id="8_kdvbi"]
+[ext_resource type="Texture2D" uid="uid://btbjo0psv506o" path="res://Assets/Third-party/VitruvianHuman_CC0/iris_col.1007.png" id="9_6r3fa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvxa4"]
+render_priority = 0
+shader = ExtResource("3_8ote3")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("5_jn44k")
+shader_parameter/roughness = 0.4
+shader_parameter/specular = 0.5
+shader_parameter/double_specularity = true
+shader_parameter/metallic = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/texture_normal = ExtResource("6_u7bl0")
+shader_parameter/normal_strength = 1.0
+shader_parameter/use_micro_detail = false
+shader_parameter/micro_detail_scale = 25.0
+shader_parameter/micro_normal_strength = 0.3
+shader_parameter/micro_ao_strength = 0.4
+shader_parameter/use_ambient_occlusion = false
+shader_parameter/ao_strength = 0.5
+shader_parameter/ao_block_light = 0.5
+shader_parameter/use_subsurface_scattering = true
+shader_parameter/use_noise = true
+shader_parameter/subsurface_scattering_strength = 0.4
+shader_parameter/skin_smoothness = 5.0
+shader_parameter/skin_fallof_smoothness = 1.0
+shader_parameter/tinted_shadow_penumbra = false
+shader_parameter/old_lightwarp_fallof = true
+shader_parameter/lightwarp = ExtResource("4_d6ban")
+shader_parameter/texture_sss_noise = ExtResource("7_5bobj")
+shader_parameter/translucency = false
+shader_parameter/translucency_strength = 0.75
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjsnr"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_050pb"]
+render_priority = 0
+shader = ExtResource("8_kdvbi")
+shader_parameter/iris = Color(0.9, 0.6, 0.3, 1)
+shader_parameter/texture_iris = ExtResource("9_6r3fa")
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hlcp7"]
+animation = &"Idle_A_RT"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_7t8pr"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e0hcr"]
+animation = &"Walk_RT"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gh7ha"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ntbkr"]
+graph_offset = Vector2(-565.65674, 148.88812)
+nodes/state_machine/node = SubResource("AnimationNodeBlend2_7t8pr")
+nodes/state_machine/position = Vector2(40, 140)
+nodes/idle_anim/node = SubResource("AnimationNodeAnimation_hlcp7")
+nodes/idle_anim/position = Vector2(-320, 80)
+nodes/walk_scale/node = SubResource("AnimationNodeTimeScale_gh7ha")
+nodes/walk_scale/position = Vector2(-180, 300)
+nodes/walk_anim/node = SubResource("AnimationNodeAnimation_e0hcr")
+nodes/walk_anim/position = Vector2(-360, 300)
+node_connections = [&"output", 0, &"state_machine", &"state_machine", 0, &"idle_anim", &"state_machine", 1, &"walk_scale", &"walk_scale", 0, &"walk_anim"]
+
+[node name="VitruvianGame" unique_id=380931895 instance=ExtResource("1_hlcp7")]
+script = ExtResource("2_7t8pr")
+
+[node name="Scene" parent="." index="0" unique_id=1987885153]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Scene/mixamo_vitruvian001" parent_id_path=PackedInt32Array(2114145359) index="0" unique_id=438421442]
+bones/0/position = Vector3(0.0056661204, 0.9524125, -0.08749662)
+bones/0/rotation = Quaternion(-0.046754625, -0.11589967, -0.0053490354, 0.9921455)
+bones/1/rotation = Quaternion(0.0033230626, 0.10306122, 0.9861783, -0.12969112)
+bones/2/rotation = Quaternion(-0.10064818, -0.107728854, 0.009004856, 0.98903155)
+bones/3/rotation = Quaternion(0.3785565, 0.039301742, -0.10447184, 0.9188232)
+bones/5/rotation = Quaternion(0.0012170218, -0.12547907, 0.9830265, 0.13383777)
+bones/6/rotation = Quaternion(-0.053575125, 0.3585244, -0.0008378477, 0.93198144)
+bones/7/rotation = Quaternion(0.4680398, -0.059788056, 0.1706903, 0.8650024)
+bones/10/rotation = Quaternion(0.08972239, -1.23305235e-05, 0.00018586167, 0.9959668)
+bones/11/rotation = Quaternion(0.089085355, -1.2102791e-05, 0.00018583189, 0.996024)
+bones/12/rotation = Quaternion(-0.5606118, -0.42826942, 0.5712707, -0.41946337)
+bones/13/rotation = Quaternion(0.49121663, 0.027821615, -0.019668886, 0.8703708)
+bones/14/rotation = Quaternion(-0.036762767, 0.20793855, 0.22344199, 0.9515691)
+bones/15/rotation = Quaternion(0.12795927, 0.08258891, 0.046786528, 0.9872267)
+bones/16/rotation = Quaternion(0.65434045, -0.0721963, -0.022870485, 0.7523983)
+bones/17/rotation = Quaternion(0.6012639, -0.11944058, -0.099189065, 0.7838223)
+bones/18/rotation = Quaternion(0.5975279, -0.13600987, -0.10971608, 0.7825753)
+bones/19/rotation = Quaternion(0.61228305, -0.09621393, -0.0044237403, 0.78475016)
+bones/20/rotation = Quaternion(0.6670928, -0.07873654, -0.039531227, 0.73974663)
+bones/21/rotation = Quaternion(0.53302324, -0.13108245, -0.06398634, 0.83343226)
+bones/22/rotation = Quaternion(0.6259698, 0.04137454, -0.010085615, 0.7786838)
+bones/23/rotation = Quaternion(0.69122076, -0.0026982443, 0.062871754, 0.7198984)
+bones/24/rotation = Quaternion(0.56305176, 0.016412565, 0.02228252, 0.8259582)
+bones/25/rotation = Quaternion(0.5960309, -0.073579684, -0.025061203, 0.79919034)
+bones/26/rotation = Quaternion(0.67833704, -0.04485705, -0.016425962, 0.7331964)
+bones/27/rotation = Quaternion(0.5945917, -0.03372921, -0.018426508, 0.8031087)
+bones/28/rotation = Quaternion(0.11712669, -0.009711565, 0.16802512, 0.9787516)
+bones/29/rotation = Quaternion(-0.042160586, -0.057329714, -0.1461527, 0.9866992)
+bones/30/rotation = Quaternion(-0.20600648, -0.24416769, -0.59442043, 0.7379755)
+bones/31/rotation = Quaternion(-0.07366192, 0.00037713526, 1.2502784e-05, 0.9972833)
+bones/32/rotation = Quaternion(-0.00776335, 4.3373966e-06, 3.1866357e-08, 0.9999699)
+bones/34/rotation = Quaternion(0.47594097, 0.04288335, 0.12543228, 0.8694297)
+bones/35/rotation = Quaternion(0.03603087, -0.34437633, -0.2013969, 0.9162675)
+bones/36/rotation = Quaternion(0.14807765, -0.08187054, -0.067494124, 0.9832675)
+bones/37/rotation = Quaternion(0.64541316, 0.06466674, 0.043832786, 0.75982815)
+bones/38/rotation = Quaternion(0.6164824, 0.09055036, 0.099873625, 0.7757419)
+bones/39/rotation = Quaternion(0.6135857, 0.11430512, 0.1071828, 0.77392435)
+bones/40/rotation = Quaternion(0.6169349, 0.085171945, 0.028174648, 0.7818844)
+bones/41/rotation = Quaternion(0.6625821, 0.046635482, 0.040028334, 0.7464636)
+bones/42/rotation = Quaternion(0.5653958, 0.09874657, 0.059622023, 0.8167141)
+bones/43/rotation = Quaternion(0.6252842, -0.019515684, -0.004032611, 0.78014266)
+bones/44/rotation = Quaternion(0.679941, 0.03272294, -0.06374656, 0.7297574)
+bones/45/rotation = Quaternion(0.5915291, 0.010473251, -0.027352242, 0.80575144)
+bones/46/rotation = Quaternion(0.6033084, 0.07203834, 0.031903844, 0.7936068)
+bones/47/rotation = Quaternion(0.6728953, 0.039032925, 0.011186373, 0.73862255)
+bones/48/rotation = Quaternion(0.5805023, 0.025994113, 0.01792265, 0.8136462)
+bones/49/rotation = Quaternion(0.11734582, 0.014067175, -0.14606348, 0.9821902)
+bones/50/rotation = Quaternion(-0.042902566, 0.051841695, 0.14560382, 0.98705184)
+bones/51/rotation = Quaternion(-0.21976025, 0.23047945, 0.6036854, 0.73085475)
+
+[node name="cm_vitruvian002" parent="Scene/mixamo_vitruvian001/Skeleton3D" index="0" unique_id=1734566791]
+surface_material_override/0 = SubResource("ShaderMaterial_mvxa4")
+surface_material_override/3 = SubResource("StandardMaterial3D_gjsnr")
+surface_material_override/5 = SubResource("ShaderMaterial_050pb")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Scene/mixamo_vitruvian001/Skeleton3D" index="1" unique_id=1259677704]
+transform = Transform3D(0.97323596, -0.009027553, -0.22963105, 0.0010815345, 0.9993969, -0.034705814, 0.22980596, 0.03352855, 0.9726586, -0.0015204977, 1.4851285, -0.058515135)
+bone_name = "mixamorigHead"
+bone_idx = 32
+
+[node name="Marker3D" type="Marker3D" parent="Scene/mixamo_vitruvian001/Skeleton3D/BoneAttachment3D" index="0" unique_id=1827303624]
+transform = Transform3D(1, -1.8626451e-09, -2.9802322e-08, 0, 1, 0, 1.4901161e-08, 0, 1, 0.037901815, 0.098223686, 0.1543324)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Scene/mixamo_vitruvian001/Skeleton3D" index="2" unique_id=1428566496]
+bone_name = "mixamorigHead"
+bone = 32
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 0.0
+primary_damp_threshold = 1.0
+secondary_limit_angle = 0.5235988
+secondary_damp_threshold = 1.0
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2" unique_id=919210819]
+active = false
+tree_root = SubResource("AnimationNodeBlendTree_ntbkr")
+anim_player = NodePath("../AnimationPlayer")
+parameters/state_machine/blend_amount = 0.0
+parameters/walk_scale/scale = 1.0
