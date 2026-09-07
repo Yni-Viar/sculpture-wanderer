@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ttcsuvvlwal3"
 path.s3tc="res://.godot/imported/Ground068_2K-PNG_NormalGL.png-183da7632734ab90bfa33aae3dc7a97e.s3tc.ctex"
+path.etc2="res://.godot/imported/Ground068_2K-PNG_NormalGL.png-183da7632734ab90bfa33aae3dc7a97e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Third-party/AmbientCG_CC0/Ground068_2K-PNG_NormalGL.png"
-dest_files=["res://.godot/imported/Ground068_2K-PNG_NormalGL.png-183da7632734ab90bfa33aae3dc7a97e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Ground068_2K-PNG_NormalGL.png-183da7632734ab90bfa33aae3dc7a97e.s3tc.ctex", "res://.godot/imported/Ground068_2K-PNG_NormalGL.png-183da7632734ab90bfa33aae3dc7a97e.etc2.ctex"]
 
 [params]
 
@@ -37,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=1024
 detect_3d/compress_to=0

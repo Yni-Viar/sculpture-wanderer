@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://da158vf2be8u6"
 path.s3tc="res://.godot/imported/oakbark_r.png-d852d22c7bbca622b96c76b876ecf9fa.s3tc.ctex"
+path.etc2="res://.godot/imported/oakbark_r.png-d852d22c7bbca622b96c76b876ecf9fa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/Third-party/Trees/oakbark_r.png"
-dest_files=["res://.godot/imported/oakbark_r.png-d852d22c7bbca622b96c76b876ecf9fa.s3tc.ctex"]
+dest_files=["res://.godot/imported/oakbark_r.png-d852d22c7bbca622b96c76b876ecf9fa.s3tc.ctex", "res://.godot/imported/oakbark_r.png-d852d22c7bbca622b96c76b876ecf9fa.etc2.ctex"]
 
 [params]
 

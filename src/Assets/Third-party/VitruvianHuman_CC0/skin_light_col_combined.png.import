@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://yrduakot8vku"
 path.s3tc="res://.godot/imported/skin_light_col_combined.png-ce797093884114fe218e0cd56001b066.s3tc.ctex"
+path.etc2="res://.godot/imported/skin_light_col_combined.png-ce797093884114fe218e0cd56001b066.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Third-party/VitruvianHuman_CC0/skin_light_col_combined.png"
-dest_files=["res://.godot/imported/skin_light_col_combined.png-ce797093884114fe218e0cd56001b066.s3tc.ctex"]
+dest_files=["res://.godot/imported/skin_light_col_combined.png-ce797093884114fe218e0cd56001b066.s3tc.ctex", "res://.godot/imported/skin_light_col_combined.png-ce797093884114fe218e0cd56001b066.etc2.ctex"]
 
 [params]
 
@@ -37,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=1024
 detect_3d/compress_to=0

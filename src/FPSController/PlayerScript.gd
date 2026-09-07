@@ -2,8 +2,8 @@ extends CharacterBody3D
 ## Made by Yni, licensed under CC0
 class_name PlayerScript
 
-const SPEED = 4.5
-const JUMP_VELOCITY = 4
+const SPEED = 1.5
+const JUMP_VELOCITY = 1.25
 
 ## Max health
 @export var health: Array[float] = [100]
@@ -21,6 +21,8 @@ const JUMP_VELOCITY = 4
 #@export var enable_inventory: bool = false
 ## Movement toggle (camera can be still moved through, even if this property is disabled)
 @export var can_move: bool = true
+
+var can_move_camera: bool = true
 
 @onready var ray = $PlayerHead/PlayerRecoil/RayCast3D
 @onready var walk_sounds = $WalkSounds
@@ -43,7 +45,7 @@ func _ready() -> void:
 
 ## Mouse rotation
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion && motion_enabled:
+	if event is InputEventMouseMotion && motion_enabled && can_move_camera:
 		rotate_y(-event.relative.x * mouse_sensitivity * 0.05)
 		$PlayerHead.rotate_x(-event.relative.y * mouse_sensitivity * 0.05)
 		
@@ -63,7 +65,10 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("move_jump") && (is_on_floor() || is_swimming):
-		velocity.y = JUMP_VELOCITY
+		if global_position.y > -0.1875 && global_position.y < -0.0625:
+			velocity.y = JUMP_VELOCITY * 4
+		else:
+			velocity.y = JUMP_VELOCITY
 	
 	if Input.is_action_pressed("camera_switch"):
 		$PlayerHead/PlayerRecoil/PlayerCamera.current = false
@@ -71,16 +76,23 @@ func _physics_process(delta: float) -> void:
 	else:
 		$PlayerHead/PlayerRecoil/PlayerCamera.current = true
 		$StaticPlayer/Head/Camera3D.current = false
+	
+	if $PlayerHead/PlayerRecoil/RayCast3D.is_colliding() && Input.is_action_just_pressed("interact"):
+		var collider: Node3D = $PlayerHead/PlayerRecoil/RayCast3D.get_collider()
+		if collider is InteractableStatic:
+			collider.interact(self)
+		elif collider is InteractableRigid:
+			collider.interact(self)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction && can_move && motion_enabled:
-		if Input.is_action_pressed("move_sprint"):
-			velocity.x = direction.x * SPEED * 2
-			velocity.z = direction.z * SPEED * 2
-			$PlayerModel/VitruvianGame.set_state("walk_scale", "scale", 2.0)
+		if Input.is_action_pressed("move_sprint") && sprint_enabled:
+			velocity.x = direction.x * SPEED * 3
+			velocity.z = direction.z * SPEED * 3
+			$PlayerModel/VitruvianGame.set_state("walk_scale", "scale", 1.5)
 		else:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
@@ -123,13 +135,7 @@ func health_manage(amount: float, type_of_health: int, deplete_reason: String = 
 	else:
 		current_health[type_of_health] == health[type_of_health]
 	if current_health[type_of_health] <= 0:
+		can_move_camera = false
+		can_move = false
 		set_physics_process(false)
 		pass
-
-##s Applies shader to the player
-func apply_shader(res: String):
-	for node in get_node("PlayerHead/PlayerRecoil/PlayerCamera").get_children():
-		if node is MeshInstance3D:
-			node.visible = false
-	if get_node_or_null("PlayerHead/PlayerRecoil/PlayerCamera" + res) != null && !res.is_empty():
-		get_node("PlayerHead/PlayerRecoil/PlayerCamera" + res).visible = true

@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://bn2c28xo75u0x"]
 
+[ext_resource type="Script" uid="uid://bhpwyxydc3soc" path="res://Scripts/Game.gd" id="1_7lihs"]
 [ext_resource type="Script" uid="uid://cb4tfe8nw5eoq" path="res://MapGenerator/TerrainGenerator.gd" id="1_iukft"]
 [ext_resource type="PackedScene" uid="uid://cu440emlhve1m" path="res://FPSController/PlayerScene.tscn" id="1_j5yw3"]
+[ext_resource type="Script" uid="uid://bc0ift226u2d6" path="res://Scripts/Text.gd" id="5_b2bpf"]
+[ext_resource type="Script" uid="uid://co7kal3htw2gw" path="res://Scripts/UI.gd" id="6_2irst"]
+[ext_resource type="Shader" uid="uid://doc8xa6wo67vq" path="res://Shaders/TransitionShaders_CC0/transition.gdshader" id="7_2irst"]
 [ext_resource type="FastNoiseLite" uid="uid://ck1m6wr3le4oi" path="res://MapGenerator/BiomeSet/terrain_gen.tres" id="7_fgofq"]
 [ext_resource type="AudioStream" uid="uid://db383hkpff2t5" path="res://Sounds/Ambient/159583__jonasrocha__amazon-forest.ogg" id="8_2irst"]
 
@@ -15,7 +19,183 @@ fog_enabled = true
 stream_count = 1
 stream_0 = ExtResource("8_2irst")
 
+[sub_resource type="Animation" id="Animation_7lihs"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Thinking:self_modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Thinking:self_modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Thinking:self_modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Thinking:self_modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_bf53h"]
+resource_name = "finish"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_game"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_fgofq"]
+resource_name = "open"
+length = 4.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Thinking:self_modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.17222223, 0, 0, 0, 1, -0.17222223, 0, 0, 0, 0, -0.17222223, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Thinking:self_modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0, 1, -0.083333336, 0, 0, 0, 0, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Thinking:self_modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.094444446, 0, 0, 0, 1, -0.094444446, 0, 0, 0, 0, -0.094444446, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Thinking:self_modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.083333336, 0, 0, 0, 1, -0.083333336, 0, 0, 0, 0, -0.083333336, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Thinking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"clear"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2irst"]
+_data = {
+&"RESET": SubResource("Animation_7lihs"),
+&"finish": SubResource("Animation_bf53h"),
+&"open": SubResource("Animation_fgofq")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71axn"]
+shader = ExtResource("7_2irst")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 0
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/global_x_mirror = false
+shader_parameter/global_y_mirror = false
+shader_parameter/local_x_mirror = false
+shader_parameter/local_y_mirror = false
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/cumulative_stagger_flip = false
+shader_parameter/cumulative_stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 1.0
+shader_parameter/progress_bias = Vector2(0, 0)
+
 [node name="Game" type="Node3D" unique_id=1039019132]
+script = ExtResource("1_7lihs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1572830514]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -37,3 +217,44 @@ trees_for_forest = Array[String](["res://Assets/OriginalAssets/Trees/SingleMesh/
 stream = SubResource("AudioStreamPlaylist_ntbkr")
 volume_db = -5.0
 autoplay = true
+
+[node name="UI" type="Control" parent="." unique_id=872405357]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_2irst")
+
+[node name="Thinking" type="Label" parent="UI" unique_id=539875469]
+self_modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -68.0
+offset_right = 512.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_b2bpf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI" unique_id=998487026]
+libraries/ = SubResource("AnimationLibrary_2irst")
+
+[node name="TextureRect" type="ColorRect" parent="UI" unique_id=1468001036]
+visible = false
+material = SubResource("ShaderMaterial_71axn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

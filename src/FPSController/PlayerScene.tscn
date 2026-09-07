@@ -38,6 +38,7 @@ _data = {
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_rticr")
+sprint_enabled = true
 footstep_sounds = Array[String](["res://Sounds/Character/Step/step_1.ogg", "res://Sounds/Character/Step/step_2.ogg", "res://Sounds/Character/Step/step_3.ogg", "res://Sounds/Character/Step/step_4.ogg", "res://Sounds/Character/Step/step_5.ogg", "res://Sounds/Character/Step/step_6.ogg", "res://Sounds/Character/Step/step_7.ogg", "res://Sounds/Character/Step/step_8.ogg", "res://Sounds/Character/Step/step_9.ogg"])
 sprint_sounds = Array[String](["res://Sounds/Character/Step/step_1.ogg", "res://Sounds/Character/Step/step_2.ogg", "res://Sounds/Character/Step/step_3.ogg", "res://Sounds/Character/Step/step_4.ogg", "res://Sounds/Character/Step/step_5.ogg", "res://Sounds/Character/Step/step_6.ogg", "res://Sounds/Character/Step/step_7.ogg", "res://Sounds/Character/Step/step_8.ogg", "res://Sounds/Character/Step/step_9.ogg"])
 
@@ -47,24 +48,24 @@ sprint_sounds = Array[String](["res://Sounds/Character/Step/step_1.ogg", "res://
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -1.2903845, 0)
 
 [node name="Skeleton3D" parent="PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001" parent_id_path=PackedInt32Array(380931895, 2114145359) index="0" unique_id=438421442]
-bones/0/position = Vector3(0.00458433, 0.94728506, -0.088818714)
-bones/0/rotation = Quaternion(-0.036441967, -0.11605876, -0.00492292, 0.9925614)
-bones/1/rotation = Quaternion(0.003880106, 0.13002399, 0.9823655, -0.13430181)
-bones/2/rotation = Quaternion(-0.13230126, -0.10421904, 0.005660891, 0.9856991)
-bones/3/rotation = Quaternion(0.39161944, 0.038199443, -0.104469076, 0.9133791)
-bones/5/rotation = Quaternion(0.0005465792, -0.09687546, 0.98385376, 0.15048823)
-bones/6/rotation = Quaternion(-0.09939368, 0.35111564, 0.016217725, 0.9309006)
-bones/7/rotation = Quaternion(0.4890267, -0.06102496, 0.16770576, 0.8538171)
-bones/10/rotation = Quaternion(0.09806624, -1.21211615e-05, 0.0001825481, 0.99517995)
-bones/11/rotation = Quaternion(0.09678523, -1.19065535e-05, 0.00018278007, 0.99530536)
-bones/13/rotation = Quaternion(0.4975054, 0.026691455, 0.014926869, 0.86692166)
-bones/14/rotation = Quaternion(-0.045877293, 0.18716158, 0.23914163, 0.9516707)
-bones/31/rotation = Quaternion(-0.08137179, 0.00037964596, 1.2583409e-05, 0.99668384)
-bones/34/rotation = Quaternion(0.4952184, 0.045310467, 0.096310884, 0.8622238)
-bones/35/rotation = Quaternion(0.028466491, -0.333563, -0.21455388, 0.91754675)
+bones/0/position = Vector3(0.001029453, 0.9444533, -0.08954887)
+bones/0/rotation = Quaternion(-0.035032846, -0.11613764, -0.004636559, 0.9926044)
+bones/1/rotation = Quaternion(0.0040980554, 0.13983996, 0.9806163, -0.13718519)
+bones/2/rotation = Quaternion(-0.14608356, -0.10272552, 0.0049505285, 0.98391193)
+bones/3/rotation = Quaternion(0.3969716, 0.03744171, -0.10583611, 0.91093934)
+bones/5/rotation = Quaternion(0.00030163728, -0.08631525, 0.9839257, 0.15633239)
+bones/6/rotation = Quaternion(-0.120494954, 0.3476371, 0.023587232, 0.9295554)
+bones/7/rotation = Quaternion(0.49921343, -0.06160123, 0.16525923, 0.8483399)
+bones/10/rotation = Quaternion(0.09533093, -1.2189908e-05, 0.00018364201, 0.99544567)
+bones/11/rotation = Quaternion(0.09469431, -1.19635615e-05, 0.00018361435, 0.99550647)
+bones/13/rotation = Quaternion(0.50110054, 0.02568561, 0.03523485, 0.8642899)
+bones/14/rotation = Quaternion(-0.052375752, 0.16513155, 0.23908374, 0.95541996)
+bones/31/rotation = Quaternion(-0.07927998, 0.00037895454, 1.256135e-05, 0.9968524)
+bones/34/rotation = Quaternion(0.50295395, 0.04778943, 0.086438715, 0.8586512)
+bones/35/rotation = Quaternion(0.027047673, -0.33099103, -0.21780618, 0.9177549)
 
 [node name="BoneAttachment3D" parent="PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D" index="1" unique_id=1259677704]
-transform = Transform3D(0.97316426, -0.0022273194, -0.23010126, -0.00043775933, 0.99993336, -0.011530533, 0.23011169, 0.01132182, 0.9730983, -0.0061165695, 1.4775715, -0.04150365)
+transform = Transform3D(0.97313315, -0.0018112939, -0.23023653, -0.00019084963, 0.99996233, -0.008673482, 0.23024364, 0.008484364, 0.9730959, -0.009603347, 1.4751565, -0.043118447)
 
 [node name="LookAtModifier3D" parent="PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D" index="2" unique_id=1428566496]
 target_node = NodePath("../../../../../../PlayerHead/PlayerRecoil/Pointer")

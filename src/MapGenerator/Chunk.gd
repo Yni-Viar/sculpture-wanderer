@@ -5,6 +5,8 @@ class_name TerrainChunk
 
 @export var chunk_size: Vector2i = Vector2i(64, 64)
 
+var has_lake: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -69,8 +71,17 @@ func biome_height_generator(x: int, y: int, noise_value: FastNoiseLite) -> float
 	if x < 30 && y < 30 && x > 3 && y > 3:
 		if noise_value.get_noise_2d(x, y) > 0.85 && terrain_manager.enable_mountains:
 			return 32.0
-		elif noise_value.get_noise_2d(x, y) < -0.01:
+		elif noise_value.get_noise_2d(x, y) < -0.1:
+			has_lake = true
+			
+			if noise_value.get_noise_2d(x, y) < 0.375 && terrain_manager.rng.randi_range(0, 3) == 1:
+				var d: Node3D = load("res://Assets/OriginalAssets/D.tscn").instantiate()
+				add_child(d)
+				d.position = Vector3(x, noise_value.get_noise_2d(x, y) * 32, y)
 			return 32.0
+		elif noise_value.get_noise_2d(x, y) < -0.01:
+			has_lake = true
+			return 8.0
 		elif noise_value.get_noise_2d(x, y) > 0.625 || noise_value.get_noise_2d(x, y) < 0.375:
 			return 2.0
 		else:
@@ -79,6 +90,7 @@ func biome_height_generator(x: int, y: int, noise_value: FastNoiseLite) -> float
 		return 1.0
 
 func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
+	## Forest and lake generation
 	for i in range(terrain_manager.trees_for_forest.size()):
 		var static_body: StaticBody3D = StaticBody3D.new()
 		add_child(static_body)
@@ -125,3 +137,30 @@ func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
 		mmi.multimesh = multimesh
 		add_child(mmi)
 	
+	## /!\ WARNING
+	## If you want only forest generation - remove any code below
+	
+	## Exit door generation
+	var random_coords: Vector2 = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	if noise_value.get_noise_2dv(random_coords) > 0.0 && noise_value.get_noise_2dv(random_coords) < 0.1 && terrain_manager.rng.randi_range(0, 3) == 1:
+		var door: Node3D = load("res://Assets/OriginalAssets/Door.tscn").instantiate()
+		add_child(door)
+		door.position = Vector3(random_coords.x, 0, random_coords.y)
+	
+	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	if noise_value.get_noise_2dv(random_coords) > 0.1 && noise_value.get_noise_2dv(random_coords) < 0.2 && terrain_manager.rng.randi_range(0, 3) == 1:
+		var c: Node3D = load("res://Assets/OriginalAssets/C.tscn").instantiate()
+		add_child(c)
+		c.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)
+	
+	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	if noise_value.get_noise_2dv(random_coords) > 0.2 && noise_value.get_noise_2dv(random_coords) < 0.3 && terrain_manager.rng.randi_range(0, 3) == 1:
+		var l: Node3D = load("res://Assets/OriginalAssets/L.tscn").instantiate()
+		add_child(l)
+		l.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)
+	
+	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	if noise_value.get_noise_2dv(random_coords) > -0.05 && noise_value.get_noise_2dv(random_coords) < 0.05 && terrain_manager.rng.randi_range(0, 3) == 1:
+		var t: Node3D = load("res://Assets/OriginalAssets/T.tscn").instantiate()
+		add_child(t)
+		t.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)

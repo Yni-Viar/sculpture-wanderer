@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://iwp1wna0oun3"
 path.s3tc="res://.godot/imported/pinebark_m.png-d16b63960e10d151623ae7b1df306314.s3tc.ctex"
+path.etc2="res://.godot/imported/pinebark_m.png-d16b63960e10d151623ae7b1df306314.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/Third-party/Trees/pinebark_m.png"
-dest_files=["res://.godot/imported/pinebark_m.png-d16b63960e10d151623ae7b1df306314.s3tc.ctex"]
+dest_files=["res://.godot/imported/pinebark_m.png-d16b63960e10d151623ae7b1df306314.s3tc.ctex", "res://.godot/imported/pinebark_m.png-d16b63960e10d151623ae7b1df306314.etc2.ctex"]
 
 [params]
 

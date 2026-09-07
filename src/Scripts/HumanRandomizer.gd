@@ -25,7 +25,6 @@ const FLOAT_BLENDSHAPES_0_TO_1: Array[String] = [
 
 const FLOAT_BLENDSHAPES_MINUS_1_TO_1: Array[String] = [
 	"L2__Arms_Armpit_Loc_Z",
-	"L2__Eyes_Distance",
 	"L2__Nose_NoseHeight"
 ]
 

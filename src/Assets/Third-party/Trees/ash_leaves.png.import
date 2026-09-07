@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6evqpvm2o4f5"
 path.s3tc="res://.godot/imported/ash_leaves.png-0d58ff269174dca1b6275fd0a3aca700.s3tc.ctex"
+path.etc2="res://.godot/imported/ash_leaves.png-0d58ff269174dca1b6275fd0a3aca700.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/Third-party/Trees/ash_leaves.png"
-dest_files=["res://.godot/imported/ash_leaves.png-0d58ff269174dca1b6275fd0a3aca700.s3tc.ctex"]
+dest_files=["res://.godot/imported/ash_leaves.png-0d58ff269174dca1b6275fd0a3aca700.s3tc.ctex", "res://.godot/imported/ash_leaves.png-0d58ff269174dca1b6275fd0a3aca700.etc2.ctex"]
 
 [params]
 
