@@ -1,11 +1,9 @@
-# project-wanderer
+# Sculpture Wanderer
 ## About project
-Infinite forest generator.
-
-In the future, it will be a game...
+Infinite forest game (or generator)
 
 > Actually, I got inspired from Tale of Tales(tm) games
-
+> I felt their thoughts, and decided to create an ART game.
 
 ### Requirements to build
 

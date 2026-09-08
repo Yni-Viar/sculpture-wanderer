@@ -42,6 +42,8 @@ var mouse_sensitivity: float = 0.05
 
 func _ready() -> void:
 	ray.add_exception(self)
+	if !OS.is_debug_build():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 ## Mouse rotation
 func _input(event: InputEvent) -> void:

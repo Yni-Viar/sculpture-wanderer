@@ -90,6 +90,7 @@ func biome_height_generator(x: int, y: int, noise_value: FastNoiseLite) -> float
 		return 1.0
 
 func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
+	var noise_offset: Vector2 = Vector2(offset.x * chunk_size.x, offset.y * chunk_size.y)
 	## Forest and lake generation
 	for i in range(terrain_manager.trees_for_forest.size()):
 		var static_body: StaticBody3D = StaticBody3D.new()
@@ -108,31 +109,31 @@ func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
 		# Set the transform of the instances.
 		for j in multimesh.visible_instance_count:
 			var failed: bool = false
-			var random_coords: Vector2 = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+			var tree_random_coords: Vector2 = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
 			for k in range(128):
-				if noise_value.get_noise_2dv(random_coords) > 0.375 || noise_value.get_noise_2dv(random_coords) < 0.675:
+				if noise_value.get_noise_2dv(tree_random_coords) > 0.375 || noise_value.get_noise_2dv(tree_random_coords) < 0.675:
 					break
 				elif k < 127:
-					random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+					tree_random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
 				else:
 					failed = true
 					break
 			if failed:
 				break
 			
-			var height: float = noise_value.get_noise_2dv(random_coords)
+			var height: float = noise_value.get_noise_2dv(tree_random_coords)
 			if height < -0.01: 
 				break
 			
 			# Fix floating tree bug
-			var random_position: Vector3 = Vector3(random_coords.x, height - 1, random_coords.y)
+			var random_position: Vector3 = Vector3(tree_random_coords.x, height - 1, tree_random_coords.y)
 			multimesh.set_instance_transform(j, Transform3D(Basis(), random_position))
 			var collider: CollisionShape3D = CollisionShape3D.new()
 			collider.shape = CylinderShape3D.new()
 			collider.shape.height = 32.0
 			collider.shape.radius = 2.0
 			static_body.add_child(collider)
-			collider.position = Vector3(random_coords.x, height - 1 + 16.0, random_coords.y)
+			collider.position = Vector3(tree_random_coords.x, height - 1 + 16.0, tree_random_coords.y)
 		var mmi: MultiMeshInstance3D = MultiMeshInstance3D.new()
 		mmi.multimesh = multimesh
 		add_child(mmi)
@@ -141,26 +142,32 @@ func biome_generator(noise_value: FastNoiseLite, offset: Vector2i):
 	## If you want only forest generation - remove any code below
 	
 	## Exit door generation
-	var random_coords: Vector2 = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	var random_coords: Vector2 = Vector2(terrain_manager.rng.randf_range(noise_offset.x, noise_offset.x + chunk_size.x), terrain_manager.rng.randf_range(noise_offset.y, noise_offset.y + chunk_size.y))
 	if noise_value.get_noise_2dv(random_coords) > 0.0 && noise_value.get_noise_2dv(random_coords) < 0.1 && terrain_manager.rng.randi_range(0, 3) == 1:
 		var door: Node3D = load("res://Assets/OriginalAssets/Door.tscn").instantiate()
 		add_child(door)
 		door.position = Vector3(random_coords.x, 0, random_coords.y)
 	
-	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	random_coords = Vector2(terrain_manager.rng.randf_range(noise_offset.x, noise_offset.x + chunk_size.x), terrain_manager.rng.randf_range(noise_offset.y, noise_offset.y + chunk_size.y))
 	if noise_value.get_noise_2dv(random_coords) > 0.1 && noise_value.get_noise_2dv(random_coords) < 0.2 && terrain_manager.rng.randi_range(0, 3) == 1:
 		var c: Node3D = load("res://Assets/OriginalAssets/C.tscn").instantiate()
 		add_child(c)
 		c.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)
 	
-	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	random_coords = Vector2(terrain_manager.rng.randf_range(noise_offset.x, noise_offset.x + chunk_size.x), terrain_manager.rng.randf_range(noise_offset.y, noise_offset.y + chunk_size.y))
 	if noise_value.get_noise_2dv(random_coords) > 0.2 && noise_value.get_noise_2dv(random_coords) < 0.3 && terrain_manager.rng.randi_range(0, 3) == 1:
 		var l: Node3D = load("res://Assets/OriginalAssets/L.tscn").instantiate()
 		add_child(l)
 		l.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)
 	
-	random_coords = Vector2(terrain_manager.rng.randf_range(offset.x, offset.x + chunk_size.x), terrain_manager.rng.randf_range(offset.y, offset.y + chunk_size.y))
+	random_coords = Vector2(terrain_manager.rng.randf_range(noise_offset.x, noise_offset.x + chunk_size.x), terrain_manager.rng.randf_range(noise_offset.y, noise_offset.y + chunk_size.y))
 	if noise_value.get_noise_2dv(random_coords) > -0.05 && noise_value.get_noise_2dv(random_coords) < 0.05 && terrain_manager.rng.randi_range(0, 3) == 1:
 		var t: Node3D = load("res://Assets/OriginalAssets/T.tscn").instantiate()
 		add_child(t)
 		t.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords), random_coords.y)
+	
+	random_coords = Vector2(terrain_manager.rng.randi_range(int(noise_offset.x), int(noise_offset.x) + chunk_size.x), terrain_manager.rng.randi_range(int(noise_offset.y), int(noise_offset.y) + chunk_size.y))
+	if random_coords.distance_to(terrain_manager.player_global_pos) > 48 && terrain_manager.rng.randi_range(0, 1) == 1:
+		var chair: Node3D = load("res://Assets/OriginalAssets/chair.tscn").instantiate()
+		add_child(chair)
+		chair.position = Vector3(random_coords.x, noise_value.get_noise_2dv(random_coords) * biome_height_generator(random_coords.x, random_coords.y, noise_value), random_coords.y)

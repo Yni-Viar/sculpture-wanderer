@@ -1,0 +1,7 @@
+[gd_resource type="Environment" format=3 uid="uid://dc5ugp4fef6m1"]
+
+[resource]
+background_mode = 1
+ssao_enabled = true
+glow_enabled = true
+fog_enabled = true

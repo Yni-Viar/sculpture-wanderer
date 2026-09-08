@@ -10,15 +10,20 @@ config_version=5
 
 [application]
 
-config/name="Project Wanderer"
+config/name="Sculpture Wanderer"
+config/description="Infinite forest game (or generator)"
 run/main_scene="uid://bn2c28xo75u0x"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Wanderer"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://d3q3plnrd1n3g"
+config/icon="uid://4asn0vi4rbv0"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

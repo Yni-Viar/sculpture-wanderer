@@ -79,8 +79,6 @@ data = PackedVector3Array(-1, 0.0984, 0, -1, 1.602, -0.0925, -1, 1.602, 0, -1, 0
 
 [node name="Door2" type="StaticBody3D" unique_id=1929105730]
 script = ExtResource("1_slm1p")
-has_sound = null
-sound_path = null
 
 [node name="Cube_001" type="MeshInstance3D" parent="." unique_id=1616973988]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64, 0)

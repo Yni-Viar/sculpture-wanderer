@@ -3,17 +3,12 @@
 [ext_resource type="Script" uid="uid://bhpwyxydc3soc" path="res://Scripts/Game.gd" id="1_7lihs"]
 [ext_resource type="Script" uid="uid://cb4tfe8nw5eoq" path="res://MapGenerator/TerrainGenerator.gd" id="1_iukft"]
 [ext_resource type="PackedScene" uid="uid://cu440emlhve1m" path="res://FPSController/PlayerScene.tscn" id="1_j5yw3"]
+[ext_resource type="Environment" uid="uid://dc5ugp4fef6m1" path="res://Assets/Environment/normal.tres" id="2_bf53h"]
 [ext_resource type="Script" uid="uid://bc0ift226u2d6" path="res://Scripts/Text.gd" id="5_b2bpf"]
 [ext_resource type="Script" uid="uid://co7kal3htw2gw" path="res://Scripts/UI.gd" id="6_2irst"]
 [ext_resource type="Shader" uid="uid://doc8xa6wo67vq" path="res://Shaders/TransitionShaders_CC0/transition.gdshader" id="7_2irst"]
 [ext_resource type="FastNoiseLite" uid="uid://ck1m6wr3le4oi" path="res://MapGenerator/BiomeSet/terrain_gen.tres" id="7_fgofq"]
 [ext_resource type="AudioStream" uid="uid://db383hkpff2t5" path="res://Sounds/Ambient/159583__jonasrocha__amazon-forest.ogg" id="8_2irst"]
-
-[sub_resource type="Environment" id="Environment_3cx6b"]
-background_mode = 1
-ssao_enabled = true
-glow_enabled = true
-fog_enabled = true
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ntbkr"]
 stream_count = 1
@@ -202,7 +197,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=568535049]
-environment = SubResource("Environment_3cx6b")
+environment = ExtResource("2_bf53h")
 
 [node name="Player" parent="." unique_id=968030370 instance=ExtResource("1_j5yw3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
