@@ -5,7 +5,6 @@
 [ext_resource type="Shader" uid="uid://rwmp12dnfv7m" path="res://Shaders/HumanShaders_MITLicense/skin_shader.gdshader" id="3_8ote3"]
 [ext_resource type="Texture2D" uid="uid://bg5wg2pb2tpm7" path="res://Shaders/HumanShaders_MITLicense/Resources/lightwarp_skin1.tres" id="4_d6ban"]
 [ext_resource type="Texture2D" uid="uid://yrduakot8vku" path="res://Assets/Third-party/VitruvianHuman_CC0/skin_light_col_combined.png" id="5_jn44k"]
-[ext_resource type="Texture2D" uid="uid://c361gvefic0i" path="res://Assets/Third-party/VitruvianHuman_CC0/skin_disp_combined_normal.png" id="6_u7bl0"]
 [ext_resource type="Texture2D" uid="uid://bmxxqd0d8ioy3" path="res://Shaders/HumanShaders_MITLicense/Resources/InterleavedGradientNoise.png" id="7_5bobj"]
 [ext_resource type="Shader" uid="uid://bfh8bv8tktr8m" path="res://Assets/Third-party/VitruvianHuman_CC0/iris.gdshader" id="8_kdvbi"]
 [ext_resource type="Texture2D" uid="uid://btbjo0psv506o" path="res://Assets/Third-party/VitruvianHuman_CC0/iris_col.1007.png" id="9_6r3fa"]
@@ -180,7 +179,6 @@ shader_parameter/specular = 0.5
 shader_parameter/double_specularity = true
 shader_parameter/metallic = 0.0
 shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
-shader_parameter/texture_normal = ExtResource("6_u7bl0")
 shader_parameter/normal_strength = 1.0
 shader_parameter/use_micro_detail = false
 shader_parameter/micro_detail_scale = 25.0

@@ -1,7 +1,7 @@
 extends InteractableStatic
 
 func _physics_process(delta: float) -> void:
-	if get_tree().root.get_node("Game").data == 15:
+	if get_tree().root.get_node("Game").data == 63:
 		var mat: StandardMaterial3D = load("res://Assets/OriginalAssets/Door/door.tres")
 		mat.emission_enabled = true
 		mat.emission = Color.WHITE
@@ -11,5 +11,5 @@ func _physics_process(delta: float) -> void:
 		set_physics_process(false)
 
 func interact(player: Node3D):
-	if get_tree().root.get_node("Game").data == 15:
+	if get_tree().root.get_node("Game").data == 63:
 		get_tree().root.get_node("Game").end_game()

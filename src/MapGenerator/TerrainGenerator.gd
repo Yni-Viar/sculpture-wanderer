@@ -12,11 +12,12 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 # should be @export var but idk
 const enable_mountains: bool = false
 
-@export var enable_forest: bool = true
+@export var enable_biome: bool = true
 
-@export var trees_for_forest: Array[String] = []
+#@export_file(".mesh") var trees_for_forest: Array[String] = []
+@export var trees_for_forest: Array[Mesh] = []
 
-@export_range(2, 1000) var trees_count_per_chunk: int = 2
+@export_range(1, 1000) var trees_count_per_chunk: int = 1
 
 var used_chunks: Dictionary[Vector2i, NodePath] = {}
 
@@ -33,7 +34,7 @@ func _ready() -> void:
 	if rng_seed == -1:
 		rng_seed = rng.randi()
 	biomes.seed = rng_seed
-	regenerate_chunks()
+	regenerate_chunks(true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,10 +45,14 @@ func check_chunks():
 	if player != null:
 		player_global_pos = Vector2i(snappedi(player.global_position.x - 32, 64) / 64, snappedi(player.global_position.z - 32, 64) / 64)
 
-func regenerate_chunks():
+func regenerate_chunks(initialize: bool = false):
 	for i in range(player_global_pos.x - fartherst_chunk_to_spawn, player_global_pos.x + fartherst_chunk_to_spawn + 1):
 		for j in range(player_global_pos.y - fartherst_chunk_to_spawn, player_global_pos.y + fartherst_chunk_to_spawn + 1):
-			if i == player_global_pos.x - fartherst_chunk_to_spawn || i == player_global_pos.x + fartherst_chunk_to_spawn || \
+			if initialize:
+				if i > player_global_pos.x - fartherst_chunk_to_spawn && i < player_global_pos.x + fartherst_chunk_to_spawn && \
+				   j > player_global_pos.y - fartherst_chunk_to_spawn && j < player_global_pos.y + fartherst_chunk_to_spawn:
+					load_chunk(i, j, true)
+			elif i == player_global_pos.x - fartherst_chunk_to_spawn || i == player_global_pos.x + fartherst_chunk_to_spawn || \
 			   j == player_global_pos.y - fartherst_chunk_to_spawn || j == player_global_pos.y + fartherst_chunk_to_spawn:
 				if used_chunks.has(Vector2i(i, j)):
 					unload_chunk(i, j)
@@ -57,11 +62,11 @@ func regenerate_chunks():
 				else:
 					load_chunk(i, j)
 
-func load_chunk(x: int, y: int):
+func load_chunk(x: int, y: int, immediate: bool = false):
 	var chunk: TerrainChunk = TerrainChunk.new()
 	add_child(chunk)
 	chunk.global_position = Vector3(x * 64, 0, y * 64)
-	chunk.terrain_generator(Vector2i(x, y))
+	chunk.generate(Vector2i(x, y), immediate)
 	used_chunks[Vector2i(x, y)] = chunk.get_path()
 
 func unload_chunk(x: int, y: int):

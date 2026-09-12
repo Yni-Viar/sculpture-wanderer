@@ -6,9 +6,23 @@
 [ext_resource type="Environment" uid="uid://dc5ugp4fef6m1" path="res://Assets/Environment/normal.tres" id="2_bf53h"]
 [ext_resource type="Script" uid="uid://bc0ift226u2d6" path="res://Scripts/Text.gd" id="5_b2bpf"]
 [ext_resource type="Script" uid="uid://co7kal3htw2gw" path="res://Scripts/UI.gd" id="6_2irst"]
+[ext_resource type="ArrayMesh" uid="uid://deta354w3u123" path="res://Assets/OriginalAssets/Trees/SingleMesh/ash1.mesh" id="6_rajel"]
 [ext_resource type="Shader" uid="uid://doc8xa6wo67vq" path="res://Shaders/TransitionShaders_CC0/transition.gdshader" id="7_2irst"]
 [ext_resource type="FastNoiseLite" uid="uid://ck1m6wr3le4oi" path="res://MapGenerator/BiomeSet/terrain_gen.tres" id="7_fgofq"]
+[ext_resource type="ArrayMesh" uid="uid://cd75fnhuotodl" path="res://Assets/OriginalAssets/Trees/SingleMesh/ash2.mesh" id="7_vvhu1"]
 [ext_resource type="AudioStream" uid="uid://db383hkpff2t5" path="res://Sounds/Ambient/159583__jonasrocha__amazon-forest.ogg" id="8_2irst"]
+[ext_resource type="ArrayMesh" uid="uid://dui4niurc3ncc" path="res://Assets/OriginalAssets/Trees/SingleMesh/ash3.mesh" id="8_lbihj"]
+[ext_resource type="ArrayMesh" uid="uid://fh4ujsxblgl" path="res://Assets/OriginalAssets/Trees/SingleMesh/ash4.mesh" id="9_raj38"]
+[ext_resource type="ArrayMesh" uid="uid://c4i1l3r3adyrg" path="res://Assets/OriginalAssets/Trees/SingleMesh/ash5.mesh" id="10_8e0uq"]
+[ext_resource type="ArrayMesh" uid="uid://bamxj1j0cr7ra" path="res://Assets/OriginalAssets/Trees/SingleMesh/oak1.mesh" id="11_i0vto"]
+[ext_resource type="ArrayMesh" uid="uid://b82u8551s3x1b" path="res://Assets/OriginalAssets/Trees/SingleMesh/oak2.mesh" id="12_3jf1l"]
+[ext_resource type="ArrayMesh" uid="uid://yg1b8s8byy7n" path="res://Assets/OriginalAssets/Trees/SingleMesh/oak3.mesh" id="13_356ba"]
+[ext_resource type="ArrayMesh" uid="uid://d1m2spnw15uvk" path="res://Assets/OriginalAssets/Trees/SingleMesh/oak4.mesh" id="14_i4lct"]
+[ext_resource type="ArrayMesh" uid="uid://b5ivtukucwnq8" path="res://Assets/OriginalAssets/Trees/SingleMesh/oak5.mesh" id="15_iyesh"]
+[ext_resource type="ArrayMesh" uid="uid://dqg6x68evhsiy" path="res://Assets/OriginalAssets/Trees/SingleMesh/pine1.mesh" id="16_i1pr2"]
+[ext_resource type="ArrayMesh" uid="uid://b1er314wl6h35" path="res://Assets/OriginalAssets/Trees/SingleMesh/pine2.mesh" id="17_4f4ik"]
+[ext_resource type="Shader" uid="uid://2x2dgm8rv82e" path="res://Shaders/StarsShader/stars.gdshader" id="22_lbihj"]
+[ext_resource type="Texture2D" uid="uid://b6yfywqcbju47" path="res://UI/jump_button.png" id="22_vvhu1"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ntbkr"]
 stream_count = 1
@@ -63,27 +77,14 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_bf53h"]
 resource_name = "finish"
+length = 1.25
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"show"
-}]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -189,12 +190,29 @@ shader_parameter/clock_feather = 0.0
 shader_parameter/progress = 1.0
 shader_parameter/progress_bias = Vector2(0, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvhu1"]
+shader = ExtResource("22_lbihj")
+shader_parameter/intensity = 0.0
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/bigStarSlow = 2.0
+shader_parameter/mediumStarSlow = 6.0
+shader_parameter/smallStarSlow = 8.0
+shader_parameter/smallStarAmount = 0.002
+shader_parameter/mediumStarAmount = 0.01
+shader_parameter/bigStarAmount = 0.02
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rub7e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntbkr"]
+
 [node name="Game" type="Node3D" unique_id=1039019132]
 script = ExtResource("1_7lihs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1572830514]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
+directional_shadow_mode = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=568535049]
 environment = ExtResource("2_bf53h")
@@ -206,7 +224,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_iukft")
 player = NodePath("../Player")
 biomes = ExtResource("7_fgofq")
-trees_for_forest = Array[String](["res://Assets/OriginalAssets/Trees/SingleMesh/ash1.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/ash2.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/ash3.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/ash4.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/ash5.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/oak1.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/oak2.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/oak3.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/oak4.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/oak5.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/pine1.mesh", "res://Assets/OriginalAssets/Trees/SingleMesh/pine2.mesh"])
+trees_for_forest = Array[Mesh]([ExtResource("6_rajel"), ExtResource("7_vvhu1"), ExtResource("8_lbihj"), ExtResource("9_raj38"), ExtResource("10_8e0uq"), ExtResource("11_i0vto"), ExtResource("12_3jf1l"), ExtResource("13_356ba"), ExtResource("14_i4lct"), ExtResource("15_iyesh"), ExtResource("16_i1pr2"), ExtResource("17_4f4ik")])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=876568279]
 stream = SubResource("AudioStreamPlaylist_ntbkr")
@@ -253,3 +271,95 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="TextureRect2" type="ColorRect" parent="UI" unique_id=1366269668]
+visible = false
+material = SubResource("ShaderMaterial_vvhu1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Completed" type="Label" parent="UI" unique_id=200925203]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.5
+offset_top = -11.5
+offset_right = 112.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "THE WORLD WAS REBOOTED."
+
+[node name="LeftHand" type="Panel" parent="UI" unique_id=1351071608]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+offset_right = 320.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rub7e")
+
+[node name="RightHand" type="Panel" parent="UI" unique_id=495071754]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -648.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ntbkr")
+
+[node name="Help" type="Label" parent="UI" unique_id=165235743]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -256.0
+offset_bottom = 64.0
+grow_horizontal = 0
+text = "WS/arrow up-down - move
+mouse motion - rotate player
+Space - jump
+Shift - sprint
+LMB/RMB - interact
+B - watch at your face
+V, N - switch face camera
+Wander in the forest, look at statues, maybe you'll find something..."
+horizontal_alignment = 2
+
+[node name="Jump" type="TextureButton" parent="UI" unique_id=189925062]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.91700006
+anchor_top = 0.84000003
+anchor_right = 0.91700006
+anchor_bottom = 0.84000003
+offset_left = -608.38403
+offset_top = 31.679993
+offset_right = -352.38403
+offset_bottom = 103.67999
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("22_vvhu1")
+stretch_mode = 3
+
+[connection signal="gui_input" from="UI/LeftHand" to="UI" method="_on_left_hand_gui_input"]
+[connection signal="gui_input" from="UI/RightHand" to="UI" method="_on_right_hand_gui_input"]
+[connection signal="pressed" from="UI/Jump" to="UI" method="_on_jump_pressed"]

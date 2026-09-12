@@ -1,5 +1,13 @@
 # Sculpture Wanderer
-## Alpha versions
+
+### v1.0.0 (Game release, 2026.09.12)
+
+- Changed way to generate sculptures.
+- Added new sculptures.
+- Optimized the game.
+- Partly fixed the moonwalk of the player, by removing ability to go right or left (please, use your mouse)
+
+## Pre-release versions
 ### v0.3.1 (2026.09.08)
 
 - Give the hint to the player with the chair (re-used from SCP: Continued Procedures).

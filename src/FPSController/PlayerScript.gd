@@ -88,8 +88,8 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir: float = Input.get_axis("move_forward", "move_backward")
+	var direction: Vector3 = (transform.basis * Vector3(0, 0, input_dir)).normalized()
 	if direction && can_move && motion_enabled:
 		if Input.is_action_pressed("move_sprint") && sprint_enabled:
 			velocity.x = direction.x * SPEED * 3

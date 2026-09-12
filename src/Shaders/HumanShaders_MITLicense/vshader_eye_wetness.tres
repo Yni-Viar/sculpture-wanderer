@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" format=3 uid="uid://csvuff5c4qll4"]
 
-[ext_resource type="Texture2D" path="res://Thirdparty/HumanShaders/Resources/MicroDetail/skin_micro_nrm_ao.png" id="1_hmqis"]
+[ext_resource type="Texture2D" uid="uid://q081egd4y1v" path="res://Shaders/HumanShaders_MITLicense/Resources/MicroDetail/skin_micro_nrm_ao.png" id="1_hmqis"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_uumac"]
 operator = 2
