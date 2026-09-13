@@ -9,6 +9,8 @@ Walk in the forest and look at the sculptures, maybe you'll get something for yo
 
 Press F1 to view controls
 
+[💳Support the author financially!](https://boosty.to/yniviar)
+
 > Actually, I got inspired from Tale of Tales(tm) games
 > I felt their thoughts, and decided to create an ART game.
 
