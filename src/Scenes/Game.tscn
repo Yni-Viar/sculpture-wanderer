@@ -340,7 +340,19 @@ Shift - sprint
 LMB/RMB - interact
 B - watch at your face
 V, N - switch face camera
-Wander in the forest, look at statues, maybe you'll find something..."
+Wander in the forest, look at statues, maybe you'll find your door....
+
+--- Third-party credits ---
+Godot Engine, Sky shader and touch controls
+by Godot Engine developers (MIT License)
+Godot Docs code by Godot Engine developers
+(CC-BY 3.0)
+Parts of chunk generation code was used from
+bsubard (MIT License)
+
+
+
+"
 horizontal_alignment = 2
 
 [node name="Jump" type="TextureButton" parent="UI" unique_id=189925062]

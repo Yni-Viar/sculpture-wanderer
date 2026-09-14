@@ -22,7 +22,16 @@ const JUMP_VELOCITY = 1.25
 ## Movement toggle (camera can be still moved through, even if this property is disabled)
 @export var can_move: bool = true
 
+@export var change_foot_pos_timer: float = 0.75
+
 var can_move_camera: bool = true
+
+var left_foot_pos: Vector3 = Vector3.ZERO
+var right_foot_pos: Vector3 = Vector3.ZERO
+var left_foot_timer: float = 0.5
+var right_foot_timer: float = 0.0
+var left_foot_rotation: float = 0.0
+var right_foot_rotation: float = 0.0
 
 @onready var ray = $PlayerHead/PlayerRecoil/RayCast3D
 @onready var walk_sounds = $WalkSounds
@@ -106,6 +115,30 @@ func _physics_process(delta: float) -> void:
 		$PlayerModel/VitruvianGame.set_state("state_machine", "blend_amount", lerp($PlayerModel/VitruvianGame/AnimationTree.get("parameters/state_machine/blend_amount"), 0.0, SPEED * delta))
 
 	move_and_slide()
+	
+	left_foot_timer -= delta
+	right_foot_timer -= delta
+	if right_foot_timer < 0.0:
+		right_foot_pos = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_position
+		right_foot_rotation = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_rotation.y
+		right_foot_timer = change_foot_pos_timer
+	if left_foot_timer < 0.0:
+		left_foot_pos = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_position
+		left_foot_rotation = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_rotation.y
+		left_foot_timer = change_foot_pos_timer
+	
+	if !is_swimming && $PlayerModel/VitruvianGame.get_state("state_machine", "blend_amount") < 0.0625:
+		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/CCDIK3D.deterministic = false
+		$PlayerModel/VitruvianGame/IK/LegIK_L.global_position = left_foot_pos
+		$PlayerModel/VitruvianGame/IK/LegIK_L.global_rotation.y = left_foot_rotation
+		$PlayerModel/VitruvianGame/IK/LegIK_R.global_position = right_foot_pos
+		$PlayerModel/VitruvianGame/IK/LegIK_R.global_rotation.y = right_foot_rotation
+	else:
+		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/CCDIK3D.deterministic = true
+		$PlayerModel/VitruvianGame/IK/LegIK_L.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_position
+		$PlayerModel/VitruvianGame/IK/LegIK_L.global_rotation.y = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_rotation.y
+		$PlayerModel/VitruvianGame/IK/LegIK_R.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_position
+		$PlayerModel/VitruvianGame/IK/LegIK_R.global_rotation.y = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_rotation.y
 
 ## Animation-based footstep system.
 func footstep_animate():

@@ -83,3 +83,7 @@ func blend_shape_index(bs_name: String) -> int:
 ## Set animation to an entity via Animation Tree.
 func set_state(animation_name: String, action_name: String, amount):
 	get_node("AnimationTree").set("parameters/" + animation_name + "/" + action_name, amount)
+
+## Set animation to an entity via Animation Tree.
+func get_state(animation_name: String, action_name: String):
+	return get_node("AnimationTree").get("parameters/" + animation_name + "/" + action_name)

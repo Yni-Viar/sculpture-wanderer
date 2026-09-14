@@ -929,7 +929,6 @@ animation = &"Walk_RT"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gh7ha"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ntbkr"]
-graph_offset = Vector2(-565.65674, 148.88812)
 nodes/state_machine/node = SubResource("AnimationNodeBlend2_7t8pr")
 nodes/state_machine/position = Vector2(40, 140)
 nodes/idle_anim/node = SubResource("AnimationNodeAnimation_hlcp7")
@@ -1448,6 +1447,50 @@ primary_limit_angle = 0.0
 primary_damp_threshold = 1.0
 secondary_limit_angle = 0.5235988
 secondary_damp_threshold = 1.0
+
+[node name="CCDIK3D" type="CCDIK3D" parent="Scene/mixamo_vitruvian001/Skeleton3D" unique_id=693577075]
+deterministic = true
+setting_count = 2
+settings/0/target_node = NodePath("../../../../IK/LegIK_L/Target_L")
+settings/1/target_node = NodePath("../../../../IK/LegIK_R/Target_R")
+settings/0/root_bone_name = "mixamorigLeftUpLeg"
+settings/0/root_bone = 1
+settings/0/end_bone_name = "mixamorigLeftLeg"
+settings/0/end_bone = 2
+settings/0/extend_end_bone = false
+settings/0/joint_count = 2
+settings/1/root_bone_name = "mixamorigRightUpLeg"
+settings/1/root_bone = 5
+settings/1/end_bone_name = "mixamorigRightLeg"
+settings/1/end_bone = 6
+settings/1/extend_end_bone = false
+settings/1/joint_count = 2
+settings/0/joints/0/rotation_axis = 3
+settings/0/joints/0/limitation = null
+settings/0/joints/1/rotation_axis = 3
+settings/0/joints/1/limitation = null
+settings/1/joints/0/rotation_axis = 0
+settings/1/joints/0/limitation = null
+settings/1/joints/1/rotation_axis = 3
+settings/1/joints/1/limitation = null
+
+[node name="LegIK_L_Helper" type="Node3D" parent="Scene/mixamo_vitruvian001/Skeleton3D" unique_id=176983674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19544253, 0, 0.13094637)
+
+[node name="LegIK_R_Helper" type="Node3D" parent="Scene/mixamo_vitruvian001/Skeleton3D" unique_id=459814345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23844004, 0.016193599, -0.32032531)
+
+[node name="IK" type="Node" parent="." unique_id=1562199587]
+
+[node name="LegIK_L" type="Node3D" parent="IK" unique_id=604251151]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.27361953, 0, 0.18332492)
+
+[node name="Target_L" type="Marker3D" parent="IK/LegIK_L" unique_id=1285055508]
+
+[node name="LegIK_R" type="Node3D" parent="IK" unique_id=111632789]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -0.33381605, 0.022671038, -0.44845542)
+
+[node name="Target_R" type="Marker3D" parent="IK/LegIK_R" unique_id=329746370]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=300376896]
 libraries/ = SubResource("AnimationLibrary_la6p1")

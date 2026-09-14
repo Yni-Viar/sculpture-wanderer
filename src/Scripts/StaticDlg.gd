@@ -27,5 +27,5 @@ func interact(player: Node3D):
 				get_tree().root.get_node("Game").data += 16
 		Choices.OI:
 			if !((get_tree().root.get_node("Game").data >> 5) % 2 == 1):
-				get_tree().root.get_node("Game/UI/Thinking").text_insert("Good and evil, darkness and brightness...")
+				get_tree().root.get_node("Game/UI/Thinking").text_insert("Good and evil, darkness and brightness, beautifulness and ugliness, natural and artificial...")
 				get_tree().root.get_node("Game").data += 32
