@@ -51,6 +51,7 @@ func end_game() -> void:
 	$UI/AnimationPlayer.play("finish")
 	$AudioStreamPlayer.stop()
 	$AudioStreamPlayer.stream = preload("res://Sounds/Generic/49090__gyzhor__spoon_drop1_CC0.ogg")
+	$AudioStreamPlayer.play()
 	$Player.health_manage(-16777216, 0, "Simulation stopped")
 	save_to_file(0)
 	$UI.end_game()

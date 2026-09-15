@@ -22,7 +22,7 @@ const JUMP_VELOCITY = 1.25
 ## Movement toggle (camera can be still moved through, even if this property is disabled)
 @export var can_move: bool = true
 
-@export var change_foot_pos_timer: float = 0.75
+@export var change_foot_pos_timer: float = 0.5
 
 var can_move_camera: bool = true
 
@@ -81,6 +81,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.y = JUMP_VELOCITY
 	
+	# Looking at self
 	if Input.is_action_pressed("camera_switch"):
 		$PlayerHead/PlayerRecoil/PlayerCamera.current = false
 		$StaticPlayer/Head/Camera3D.current = true
@@ -88,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		$PlayerHead/PlayerRecoil/PlayerCamera.current = true
 		$StaticPlayer/Head/Camera3D.current = false
 	
+	# Interaction
 	if $PlayerHead/PlayerRecoil/RayCast3D.is_colliding() && Input.is_action_just_pressed("interact"):
 		var collider: Node3D = $PlayerHead/PlayerRecoil/RayCast3D.get_collider()
 		if collider is InteractableStatic:
@@ -95,12 +97,13 @@ func _physics_process(delta: float) -> void:
 		elif collider is InteractableRigid:
 			collider.interact(self)
 
+	
+	# Movement
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir: float = Input.get_axis("move_forward", "move_backward")
 	var direction: Vector3 = (transform.basis * Vector3(0, 0, input_dir)).normalized()
 	if direction && can_move && motion_enabled:
-		if Input.is_action_pressed("move_sprint") && sprint_enabled:
+		if (Input.is_action_pressed("move_sprint") || OS.get_name() == "Web" || OS.get_name() == "Android") && sprint_enabled:
 			velocity.x = direction.x * SPEED * 3
 			velocity.z = direction.z * SPEED * 3
 			$PlayerModel/VitruvianGame.set_state("walk_scale", "scale", 1.5)
@@ -116,6 +119,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+	# Inverse Kinematics
 	left_foot_timer -= delta
 	right_foot_timer -= delta
 	if right_foot_timer < 0.0:
@@ -128,17 +132,22 @@ func _physics_process(delta: float) -> void:
 		left_foot_timer = change_foot_pos_timer
 	
 	if !is_swimming && $PlayerModel/VitruvianGame.get_state("state_machine", "blend_amount") < 0.0625:
-		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/CCDIK3D.deterministic = false
+		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/IK3D.deterministic = false
 		$PlayerModel/VitruvianGame/IK/LegIK_L.global_position = left_foot_pos
 		$PlayerModel/VitruvianGame/IK/LegIK_L.global_rotation.y = left_foot_rotation
 		$PlayerModel/VitruvianGame/IK/LegIK_R.global_position = right_foot_pos
 		$PlayerModel/VitruvianGame/IK/LegIK_R.global_rotation.y = right_foot_rotation
 	else:
-		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/CCDIK3D.deterministic = true
+		$PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/IK3D.deterministic = true
 		$PlayerModel/VitruvianGame/IK/LegIK_L.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_position
 		$PlayerModel/VitruvianGame/IK/LegIK_L.global_rotation.y = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_rotation.y
 		$PlayerModel/VitruvianGame/IK/LegIK_R.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_position
 		$PlayerModel/VitruvianGame/IK/LegIK_R.global_rotation.y = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_rotation.y
+
+	if $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/BoneAttachmentL/RayCast3D.is_colliding():
+		$PlayerModel/VitruvianGame/IK/LegIK_L/FootPosL.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/BoneAttachmentL/RayCast3D.get_collision_point()
+	if $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/BoneAttachmentR/RayCast3D.is_colliding():
+		$PlayerModel/VitruvianGame/IK/LegIK_R/FootPosR.global_position = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/BoneAttachmentR/RayCast3D.get_collision_point()
 
 ## Animation-based footstep system.
 func footstep_animate():

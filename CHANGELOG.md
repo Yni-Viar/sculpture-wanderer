@@ -1,5 +1,11 @@
 # Sculpture Wanderer
 
+### v1.1.0 (Inverse Kinematics update, 2026.09.15)
+
+- Added foot inverse kinematics.
+- Added endgame sound (of breaking world, but is actually a spoon 🙂)
+- Increased character speed on Web and Android, due to low graphics may be dull for someone.
+
 ### v1.0.0 (Game release, 2026.09.12)
 
 - Changed way to generate sculptures.
