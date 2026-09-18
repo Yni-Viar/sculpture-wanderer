@@ -23,6 +23,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b1er314wl6h35" path="res://Assets/OriginalAssets/Trees/SingleMesh/pine2.mesh" id="17_4f4ik"]
 [ext_resource type="Shader" uid="uid://2x2dgm8rv82e" path="res://Shaders/StarsShader/stars.gdshader" id="22_lbihj"]
 [ext_resource type="Texture2D" uid="uid://b6yfywqcbju47" path="res://UI/jump_button.png" id="22_vvhu1"]
+[ext_resource type="Script" uid="uid://crogu166aibdu" path="res://Scripts/ThirdParty/TrajectoryVisualizer.gd" id="24_raj38"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ntbkr"]
 stream_count = 1
@@ -220,6 +221,32 @@ environment = ExtResource("2_bf53h")
 [node name="Player" parent="." unique_id=968030370 instance=ExtResource("1_j5yw3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
+[node name="Skeleton3D" parent="Player/PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001" parent_id_path=PackedInt32Array(968030370, 380931895, 912107563) index="0" unique_id=1587429412]
+bones/0/position = Vector3(-0.001054144, 0.94828564, -0.088560715)
+bones/0/rotation = Quaternion(-0.03763852, -0.11604287, -0.004964755, 0.9925185)
+bones/1/rotation = Quaternion(0.0037692906, 0.122785605, 0.98304236, -0.13615158)
+bones/2/rotation = Quaternion(-0.12221206, -0.10490203, 0.006804184, 0.98692125)
+bones/3/rotation = Quaternion(0.38737845, 0.03698255, -0.10714518, 0.91492635)
+bones/5/rotation = Quaternion(0.0006586152, -0.10072863, 0.98418456, 0.14571917)
+bones/6/rotation = Quaternion(-0.09517277, 0.35202116, 0.014643864, 0.9310257)
+bones/7/rotation = Quaternion(0.48942357, -0.06171316, 0.16606915, 0.85386014)
+bones/10/rotation = Quaternion(0.098026805, -1.2133469e-05, 0.00018255887, 0.9951838)
+bones/11/rotation = Quaternion(0.09739033, -1.18880935e-05, 0.0001825304, 0.99524635)
+bones/13/rotation = Quaternion(0.496489, 0.02699673, 0.008310389, 0.86758333)
+bones/14/rotation = Quaternion(-0.04375735, 0.19319692, 0.23816004, 0.95081025)
+bones/31/rotation = Quaternion(-0.082045056, 0.00037994178, 1.2585538e-05, 0.99662864)
+bones/34/rotation = Quaternion(0.4930525, 0.044345073, 0.098335184, 0.86328614)
+bones/35/rotation = Quaternion(0.028761405, -0.33399925, -0.21400182, 0.91750777)
+
+[node name="BoneAttachment3D" parent="Player/PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D" index="1" unique_id=1259677704]
+transform = Transform3D(0.9731711, -0.0027368069, -0.2300664, -0.00024549526, 0.9999163, -0.012933187, 0.23008257, 0.012642659, 0.97308886, -0.011589963, 1.4786563, -0.04238107)
+
+[node name="BoneAttachmentL" parent="Player/PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D" index="6" unique_id=1140335069]
+transform = Transform3D(-0.99062175, 0.13658205, 0.0038125366, -0.13638216, -0.9900986, 0.033234358, 0.008313805, 0.032402784, 0.9994403, 0.13246123, 0.47995195, 0.052477784)
+
+[node name="BoneAttachmentR" parent="Player/PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D" index="7" unique_id=296092627]
+transform = Transform3D(-0.532689, -0.13302478, -0.83579177, 0.2988001, -0.9535317, -0.038674492, -0.7918092, -0.27033597, 0.54768324, -0.2092615, 0.48104435, -0.16932642)
+
 [node name="Terrain" type="Node3D" parent="." unique_id=339319666 node_paths=PackedStringArray("player")]
 script = ExtResource("1_iukft")
 player = NodePath("../Player")
@@ -330,8 +357,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -256.0
-offset_bottom = 64.0
+offset_left = -521.0
+offset_bottom = 648.0
 grow_horizontal = 0
 text = "WS/arrow up-down - move
 mouse motion - rotate player
@@ -345,14 +372,18 @@ Wander in the forest, look at statues, maybe you'll find your door....
 --- Third-party credits ---
 Godot Engine, Sky shader and touch controls
 by Godot Engine developers (MIT License)
+---
 Godot Docs code by Godot Engine developers
 (CC-BY 3.0)
+---
 Parts of chunk generation code was used from
 bsubard (MIT License)
-
-
-
-"
+---
+Path calculations are used from
+https://github.com/runevision/LocomotionSystem
+Unity package.
+Copyright (c) 2008-2020, Rune Skovbo Johansen.
+ Licensed according to the Mozilla Public License Version 2.0."
 horizontal_alignment = 2
 
 [node name="Jump" type="TextureButton" parent="UI" unique_id=189925062]
@@ -371,6 +402,14 @@ grow_vertical = 0
 texture_normal = ExtResource("22_vvhu1")
 stretch_mode = 3
 
+[node name="ThePath" type="Node2D" parent="." unique_id=1304892279 node_paths=PackedStringArray("camera")]
+visible = false
+script = ExtResource("24_raj38")
+camera = NodePath("../Player/PlayerHead/PlayerRecoil/PlayerCamera")
+
 [connection signal="gui_input" from="UI/LeftHand" to="UI" method="_on_left_hand_gui_input"]
 [connection signal="gui_input" from="UI/RightHand" to="UI" method="_on_right_hand_gui_input"]
 [connection signal="pressed" from="UI/Jump" to="UI" method="_on_jump_pressed"]
+
+[editable path="Player"]
+[editable path="Player/PlayerModel/VitruvianGame"]

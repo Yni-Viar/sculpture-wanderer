@@ -1,5 +1,11 @@
 # Sculpture Wanderer
 
+### v1.1.1
+
+- Fixed touchscreen jump button wrong position
+- Added your walked path indicator (only effective on F1 click).
+- Fixed player's eyes.
+
 ### v1.1.0 (Inverse Kinematics update, 2026.09.15)
 
 - Added foot inverse kinematics.

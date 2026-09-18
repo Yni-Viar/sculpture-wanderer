@@ -7,6 +7,7 @@ var data: int = 0b00000000:
 
 var mouse_released: bool = false
 var loaded: bool = false
+var path_timer: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,10 +30,11 @@ func _input(event: InputEvent) -> void:
 			get_tree().quit()
 	elif Input.is_action_just_pressed("help"):
 		$UI/Help.visible = !$UI/Help.visible
+		$ThePath.visible = !$ThePath.visible
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
+func _physics_process(delta: float) -> void:
+	$ThePath.add_point(Time.get_ticks_msec(), $Player.global_position)
 
 func save_to_file(content: int):
 	if OS.get_name() != "Web":

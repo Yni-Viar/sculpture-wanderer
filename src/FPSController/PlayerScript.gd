@@ -126,6 +126,7 @@ func _physics_process(delta: float) -> void:
 		right_foot_pos = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_position
 		right_foot_rotation = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_R_Helper.global_rotation.y
 		right_foot_timer = change_foot_pos_timer
+		
 	if left_foot_timer < 0.0:
 		left_foot_pos = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_position
 		left_foot_rotation = $PlayerModel/VitruvianGame/Scene/mixamo_vitruvian001/Skeleton3D/LegIK_L_Helper.global_rotation.y
