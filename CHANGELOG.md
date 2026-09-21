@@ -1,6 +1,10 @@
 # Sculpture Wanderer
 
-### v1.1.1
+### v1.1.2 (2026.09.21)
+
+- Protagonist got dressed (finally) + mesh optimized a bit.
+
+### v1.1.1 (2026.09.18)
 
 - Fixed touchscreen jump button wrong position
 - Added your walked path indicator (only effective on F1 click).

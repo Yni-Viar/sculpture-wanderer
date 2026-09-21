@@ -7,7 +7,6 @@ const TOGGLE_ON_BLENDSHAPES: Array[String] = [
 
 const FLOAT_BLENDSHAPES_0_TO_1: Array[String] = [
 	"L2__Age_Old",
-	"L2__Chin_PosZ",
 	"L2__Ears_Height",
 	"L2__Ears_Tragus_Protrusion",
 	"L2__Ears_Lobe_Bulbous",
@@ -19,7 +18,6 @@ const FLOAT_BLENDSHAPES_0_TO_1: Array[String] = [
 	"L2__Nose_Flatness",
 	"L2__Nose_Width",
 	"L2__Nose_Protrusion",
-	"L2__Nose_Tip_Protrusion",
 	"L2__Chest_RibWidth"
 ]
 
